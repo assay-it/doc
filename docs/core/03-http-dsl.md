@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Syntax of HTTP protocol
+description: |
+  The composition of HTTP protocol I/O is achieved from reusable primitive elements. All together they defines DSL syntax for Behavior as a Code.
 parent: core
 permalink: /docs/core/http
 nav_order: 3
@@ -271,4 +273,3 @@ gurl.HTTP(
   })
 )
 ```
-
