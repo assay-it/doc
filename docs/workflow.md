@@ -2,7 +2,7 @@
 layout: default
 title: workflows
 description: |
-  xxx
+  Workflows puts a strong focus on continuous integration, continuous delivery and continuous deployment of microservices.
 nav_order: 4
 has_children: true
 ---

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Everything is Continuous
-parent: workflow
+parent: workflows
 nav_order: 2
 ---
 
