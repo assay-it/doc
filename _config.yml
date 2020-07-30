@@ -3,7 +3,7 @@ logo: /assets/images/icon.v3.svg
 description: |
   https://assay.it documentation
 
-baseurl: /
+baseurl: ""
 url: https://assay-it.github.io/
 
 # theme: just-the-docs
