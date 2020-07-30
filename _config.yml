@@ -1,0 +1,21 @@
+title: ""
+logo: "/assets/images/icon.v3.svg"
+description: https://assay.it documentation
+
+baseurl: ""
+url: "https://assay-it.github.io/"
+
+theme: just-the-docs
+remote_theme: fogfish/just-the-docs
+
+search_enabled: true
+
+aux_links:
+  "Blog":
+    - "/blog"
+  "Community":
+    - "https://assay-it.slack.com/"
+  "Twitter":
+    - "https://twitter.com/ItAssay"
+  "GitHub":
+    - "https://github.com/assay-it"
