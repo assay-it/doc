@@ -89,7 +89,7 @@ type MyParam struct {
   Host string `json:"host,omitempty"`
 }
 
-ø.Params(MyParam{"host", "site"})
+ø.Params(MyParam{Site: "site", Host: "host"})
 ```
 
 ### Headers
@@ -106,6 +106,82 @@ Headers are optional, you define as many headers as needed either using string l
 
 <span class="label label-yellow">Important</span> There are header constants for frequently used headers. 
 
+
+### Request payload
+
+`ø.Send` transmits the payload to destination URL. The function takes Go data types (e.g. maps, struct, etc) and encodes its to binary using Content-Type as a hint. The function fails if content type is not supported by the library.
+
+```go
+type MyType struct {
+  Site string `json:"site,omitempty"`
+  Host string `json:"host,omitempty"`
+}
+
+ø.Send(MyType{Site: "site", Host: "host"})
+ø.Send(map[string]string{
+  "site": "site",
+  "host": "host",
+})
+```
+
+Only following content types supported:
+* `application/json`
+* `application/x-www-form-urlencoded`
+
+
 ## Reader
 
 Symbol ƒ (option + f) is an convenient alias to module [gurl/http/recv](https://github.com/fogfish/gurl/blob/master/http/recv/arrows.go), which defines reader morphism that focuses into side-effect, HTTP protocol response. The reader morphism is a pattern matcher, is used to match HTTP response code, headers and response payload. It helps us to declare our expectations on the response.
+
+### Status Code
+
+Each quality assessment have to declare expected status code(s). The primitive `ƒ.Code` takes one or few [HTTP Status Codes](https://github.com/fogfish/gurl/blob/master/static.go). The assessment fails if microservice responds with other status.
+
+```go
+ƒ.Code(gurl.StatusCodeOK)
+```
+
+### Headers
+
+It is possible to match value of HTTP header in the response. The assessment fails if response is missing header or its value do not matches desired one:
+
+```go
+// matches Content-Type value 
+ƒ.Header("Content-Type").Is("application/json")
+
+// matches any value of Content-Type header
+ƒ.Header("Content-Type").Is("*")
+ƒ.Header("Content-Type").Any()
+```
+
+The assessment statements can lifts the header value to the variable.
+
+```go
+var content string
+ƒ.Header("Content-Type").String(&content)
+```
+
+### Response payload
+
+`ƒ.Recv` decodes the response payload to Golang native data structure using Content-Type header as a hint.
+
+```go
+type MyType struct {
+  Site string `json:"site,omitempty"`
+  Host string `json:"host,omitempty"`
+}
+
+var data MyType
+ƒ.Recv(&data)
+```
+
+The codec only supports:
+* `application/json`
+* `application/x-www-form-urlencoded`
+
+It is possible to bypass auto-codec and receive raw binary data
+
+```go
+var data []byte
+ƒ.Bytes(&data)
+```

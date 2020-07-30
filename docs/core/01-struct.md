@@ -33,7 +33,6 @@ func TestBar() gurl.Arrow { /* ... */ }
 func main() {}
 ```
 
-Notice
-{: .label .label-purple }
+<span class="label label-yellow">Important</span> features to implement
 * Each suite is always declared as main package. 
 * Empty main function is a required for each suite, otherwise we cannot compile it.

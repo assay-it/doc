@@ -38,7 +38,7 @@ Want to jump right into using [**https://assay.it**](https://assay.it)? Follow t
 
 1. Sign Up for [https://assay.it](https://assay.it) with your GitHub account.
 
-2. To start quality assessments with [https://assay.it](https://assay.it), you need a git repository. This repository will host your BaC suites either create a new dedicated one or collocate with your application.
+2. To start quality assessments with [https://assay.it](https://assay.it), you need a git repository. This repository will host your BaC suites.
 
 3. The suite is simple Golang program build around [http combinator library](https://github.com/fogfish/gurl). Please check  details about [syntax and api](/docs/core).
 
