@@ -185,3 +185,90 @@ It is possible to bypass auto-codec and receive raw binary data
 var data []byte
 ƒ.Bytes(&data)
 ```
+
+### Focus on the value
+
+The quality assessment shall not only check the status of HTTP I/O but also assert the response value. There are few helper primitives. These primitives acts as lense they are focuses inside the structure and fetches values.
+
+```go
+var data MyType
+ƒ.Recv(&data)
+
+// checks if the value is defined (shall use pointer)
+ƒ.Defined(&data.Site)
+
+// checks if the value matches excepted one
+ƒ.Value(&data).Is(&MyType{Site: "site", Host: "host"})
+// checks if the value matches string literal
+ƒ.Value(&data.Site).String("site")
+ƒ.Value(/* ... */).Bytes([]byte{1, 2, 3, 4})
+```
+
+### Focus on the sequence
+
+`ƒ.Value` lens has a limitation while working with sequences. It is not able to focus into distinct element, you should use `ƒ.Seq` instead.   
+
+```go
+var data Seq
+
+// lookups element in the sequence
+ƒ.Seq(&data).Has("site")
+// lookups element in the sequence and matches it against expected value
+ƒ.Seq(&data).Has("site", MyType{Site: "site", Host: "host"})
+```
+
+Your data type needs to implement `gurl.Ord` interface.
+
+```go
+type Ord interface {
+  sort.Interface
+  // String return primary key as string type
+  String(int) string
+  // Value return value at index
+  Value(int) interface{}
+}
+```
+
+`gurl.Ord` extends `sort.Interface` with ability to lookup element by string. In this example, the microservice returns sequence of elements. The lens `Seq` and `Has` focuses on the required element. A reference implementation of the interface is
+
+```go
+  type Seq []MyType
+
+  func (c Seq) Len() int                { return len(c) }
+  func (c Seq) Swap(i, j int)           { c[i], c[j] = c[j], c[i] }
+  func (c Seq) Less(i, j int) bool      { return c[i].Site < c[j].Site }
+  func (c Seq) String(i int) string     { return c[i].Site }
+  func (c Seq) Value(i int) interface{} { return c[i] }
+```
+
+
+### Custom quality check
+
+Often, you need to write a small function to apply a custom check on the received value. These custom functions shall be composable within the category pattern. Let's consider a previous example.
+
+Your assessment has successfully received the sequence of elements into seq variable. We need to write a small function that extracts first elements from the sequence. A following traditional coding style does not work
+
+```go
+var seq Seq
+gurl.HTTP(
+  /* ... */
+  ƒ.Recv(&seq)
+)
+head := seq[0]
+```
+
+The sequence is not "materialized" yet at the moment when `gurl.HTTP(...)` returns. It only returns a "promise" of HTTP I/O which is materialized later. Therefore, any computation have to be lifted-and-composed with this promise. `ƒ.FMap` does it. `ƒ.FMap` takes a closure and applies it to the results of network communication:
+
+```go
+var seq Seq
+var head MyType
+gurl.HTTP(
+  /* ... */
+  ƒ.Recv(&seq)
+  ƒ.FMap(func() error {
+    head := seq[0]
+    return nil
+  })
+)
+```
+
