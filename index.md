@@ -27,7 +27,7 @@ to ensure quality of the solutions.
 [**https://assay.it**](https://assay.it) is designed to perform a formal (objective)
 proofs of the quality using Behavior as a Code (BaC) paradigm. It connects cause-and-effect
 (Given/When/Then) to the networking concepts (Input/Process/Output). The expected
-behavior of each network component is declared using simple Golang program.
+behavior of each network component is declared using a simple Golang program.
 
 
 ## Getting started
@@ -40,7 +40,7 @@ Want to jump right into using [**https://assay.it**](https://assay.it)? Follow t
 
 2. To start quality assessments with [https://assay.it](https://assay.it), you need a git repository. This repository will host your BaC suites.
 
-3. The suite is simple Golang program build around [http combinator library](https://github.com/fogfish/gurl). Please check  details about [syntax and api](/docs/core).
+3. The suite is a simple Golang program built around [http combinator library](https://github.com/fogfish/gurl). Please check  details about [syntax and api](/docs/core).
 
 4. Use standard Golang import declaration to include core libraries and its peer dependencies
 ```go
@@ -51,7 +51,7 @@ import (
 )
 ```
 
-5. Each suite implements few quality assessments. Each is a function of the form `func TestXxx() gurl.Arrow`.
+5. Each suite implements a few quality assessments. Each is a function of the form `func TestXxx() gurl.Arrow`.
 ```go
 func TestOk() gurl.Arrow {
 	return gurl.HTTP(
@@ -60,7 +60,7 @@ func TestOk() gurl.Arrow {
 }
 ```
 
-6. The quality assessments uses cause-and-effect concept to declare HTTP I/O and expected response. 
+6. The quality assessments use cause-and-effect concept to declare HTTP I/O and expected response. 
 ```go
 func TestOk() gurl.Arrow {
 	return gurl.HTTP(
@@ -88,7 +88,7 @@ func TestOk() gurl.Arrow {
 
 ## Next Steps
 
-Look into advanced example on GitHub. It shows more complex examples, talks about integration with CI\CD and depict the typical workflow.
+Look into advanced examples on GitHub. It shows more complex examples, talks about integration with CI\CD and depict the typical workflow.
 
 [View it on GitHub](https://github.com/assay-it/example.assay.it){: .btn .fs-5 .mb-4 .mb-md-0 }
 
