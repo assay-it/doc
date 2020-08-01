@@ -6,7 +6,7 @@ description: |
 baseurl: ""
 url: https://assay-it.github.io/
 
-# theme: just-the-docs
+theme: just-the-docs
 remote_theme: fogfish/just-the-docs
 color_scheme: site
 
