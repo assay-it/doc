@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Syntax of HTTP protocol
+title: Coding style and syntax of HTTP protocol
 description: |
-  The composition of HTTP protocol I/O is achieved from reusable primitive elements. All together they defines DSL syntax for Behavior as a Code.
+  The composition of HTTP protocol is achieved from reusable primitive elements. All together they defines DSL syntax and coding style for Behavior as a Code.
 parent: core
-permalink: /docs/core/http
+permalink: /docs/core/style
 nav_order: 3
 ---
 
-# Syntax of HTTP protocol
+# Coding style and syntax of HTTP protocol
 
 `gurl.HTTP(arrows ...gurl.Arrow) gurl.Arrow` builds higher-order HTTP closure, so called `gurl.Arrow`, from primitive elements.
 
