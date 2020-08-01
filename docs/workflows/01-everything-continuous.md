@@ -38,7 +38,7 @@ Let's consider the workflow implementation with GitHub Actions and AWS CDK, [htt
 
 8. [https://assay.it](https://assay.it) make a formal proof of the development environment.
 
-9. The delivery of development environment to live is automated using git tags. A provisioning a new tag caused an new immutable deployment of your application to live environment, which makes it compliant with green/blue deployment schemas.
+9. The delivery of development environment to live is automated using git tags. A provisioning a new tag caused an new immutable deployment of your application to live environment.
 
 10. [https://assay.it](https://assay.it) make a formal proof of the live environment.
 
@@ -49,7 +49,7 @@ GitHub Actions anchors [https://assay.it](https://assay.it) though WebHook API. 
 
 ![](01-everything-continuous-screen.png)
 
-We need to define the following GitHub actions pipelines at `.github/workflows`
+The workflow implementation requires the following pipelines for GitHub Actions at `.github/workflows`
 * `check.yml` checks quality of proposed changes. It is executed for each pull request and its commits.
 * `build.yml` validates quality of `main` branch after changes are merged.
 * `carry.yml` carries the microservice to live environment using immutable deployment. The pipeline is executed every time a new release is crafted using GitHub.
@@ -58,7 +58,7 @@ We need to define the following GitHub actions pipelines at `.github/workflows`
 
 ## Project layout
 
-"How do I organize my code?" is one of important questions to resolve in the beginning of development. Unfortunately, there is not a straight forward answer on it, which suites purposes of every team. Based on our experience with heterogenous development (AWS CDK, TypeScript and other runtime), the following structure simplify maintenance:
+"How do I organize my code?" is one of important questions to resolve in the beginning of development. Unfortunately, there is not a straightforward answer on it that suites each team. Based on our experience with heterogenous development (AWS CDK, TypeScript and other runtime), the following structure simplify maintenance:
 
 ```
  /
@@ -87,7 +87,7 @@ on:
       - synchronize
 ```
 
-We are going to skip build steps which are required to compile and unit tests software assets because they are language, runtime dependent. Please see [our example on GitHub](https://github.com/assay-it/example.assay.it) about Golang. Let's jump directly continuous deployment and quality assessment.
+Usually pipelines contains a lot of various build, compile, lint and unit tests. We are going to omit them because they are language/runtime dependent. Please see [our example on GitHub](https://github.com/assay-it/example.assay.it) about Golang. Let's jump directly continuous deployment and quality assessment.
 
 Before anythings happens with deployment, we need to configure **access to AWS**. We are using [official aws action](https://github.com/aws-actions/configure-aws-credentials).
 
@@ -102,9 +102,9 @@ Before anythings happens with deployment, we need to configure **access to AWS**
 ```
 {% endraw %}
 
-This action just injects credentials into the execution environment. You still have to create IAM User, generate access/secret keys and configure GitHub secrets variables. Fortunately, you do this manual toil only once per GitHub repository.
+This action just injects credentials into pipeline's environment. You still have to create IAM User, generate access/secret keys and configure GitHub secrets variables. Fortunately, you do this manual toil only once per GitHub repository.
 
-**Infrastructure as a Code** is one approach to implement deployment automation for your microservices. The reference workflow uses **declarative IaC** with AWS CDK. It describes the infrastructure using TypeScript without explicit definition of commands to be performed. AWS CDK transpile the TypeScript to AWS Cloud Formation. Because of **immutable deployment**, we deploy
+**Infrastructure as a Code** is one approach to implement deployment automation for your microservices. This reference workflow uses **declarative IaC** with AWS CDK. It describes the infrastructure using TypeScript without explicit definition of commands to be performed. AWS CDK transpile the TypeScript to AWS Cloud Formation. Because of **immutable deployment**, we deploy
 each pull request to own sandbox. The variable `github.event.number` is a perfect source to derived unique name for sandbox environment
 
 {% raw %}
@@ -118,7 +118,7 @@ each pull request to own sandbox. The variable `github.event.number` is a perfec
 ```
 {% endraw %}
 
-Once the sandbox environment is ready, the quality assessment begins. GitHub Actions anchors [https://assay.it](https://assay.it) though WebHook API. We have implemented an action [assay-it/github-actions-webhook](https://github.com/assay-it/github-actions-webhook) to trigger quality assessment:
+Once the sandbox environment is ready, the quality assessment begins. GitHub Actions anchors [https://assay.it](https://assay.it) though WebHook API. We have implemented an action [assay-it/github-actions-webhook](https://github.com/assay-it/github-actions-webhook) to trigger quality assessment for you:
 
 {% raw %}
 ```yml
@@ -128,7 +128,9 @@ Once the sandbox environment is ready, the quality assessment begins. GitHub Act
 ```
 {% endraw %}
 
-This actions requires an api access key to executed WebHook on your behalf. You can generate a new access key from [https://assay.it](https://assay.it): Account > Setting > Secrets.
+This actions requires an secret key to executed WebHook on your behalf. You can generate a new secret key from [https://assay.it](https://assay.it): Account > Setting > Secrets.
+
+This is it! The quality assessment pipeline is ready! Make any changes to your microservice and open a pull request. Enjoy the results!
 
 ## Built It
 
@@ -187,4 +189,10 @@ The release name `github.event.release.name` helps you to distinguish deployment
 
 ## Afterwords
 
-...
+This simple workflow delivers few measurable benefits to your team:
+
+* **Reduce Cost** by eliminating a toil activities from engineering processes. Team focuses they effort towards feature development and other business valuable activities. By coding the entire delivery chain, the team accomplishes automated and repeatable processes. 
+
+* **Increase Speed** of iteration cycles. It shortens delivery time and unlocks an opportunity to release software at any point in time.
+
+Please admit that this skips definition of actual quality assessment suites. Please check [the core](/docs/core) module for details about Behavior as a Code development or see [our example on GitHub](https://github.com/assay-it/example.assay.it).
