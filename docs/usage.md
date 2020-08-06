@@ -12,4 +12,4 @@ permalink: /docs/usage
 
 You are welcome to submit us a new feature request if we are missing some integration. 
 
-[Feature Request](https://github.com/assay-it/assay-it.github.io/issues){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Feature Request](https://github.com/assay-it/assay-it.github.io/issues/new){: .btn .fs-5 .mb-4 .mb-md-0 }

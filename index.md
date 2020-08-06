@@ -7,7 +7,7 @@ description: |
 permalink: /
 ---
 
-# Objective proof of microservice quality
+# Objective prove of microservice quality
 {: .fs-9 }
 
 We build [**https://assay.it**](https://assay.it) to help developers with quality assessment of microservices in the distributed environment. The service is designed to perform a formal and objective proof of the quality using Behavior as a Code paradigm.
