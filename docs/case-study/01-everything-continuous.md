@@ -20,7 +20,7 @@ Modern software engineering is talking about Continuous Integration, Continuous 
 
 Let's consider the workflow implementation with GitHub Actions and AWS CDK, [https://assay.it](https://assay.it) executes quality assessments along the pipeline.
 
-![](/doc/case-study/01-everything-continuous-workflow.svg)
+![](/doc/assets/images/case-study/01-everything-continuous-workflow.svg)
 
 1. The `main` branch of your project is always the latest deployable snapshot of a microservice.
 
@@ -47,7 +47,7 @@ Let's consider the workflow implementation with GitHub Actions and AWS CDK, [htt
 
 GitHub Actions anchors [https://assay.it](https://assay.it) though WebHook API. Results of quality assessment are communicated back to Pull Request (each commit is annotated) and details are visible at service itself.
 
-![](/doc/case-study/01-everything-continuous-screen.png)
+![](/doc/assets/images/case-study/01-everything-continuous-screen.png)
 
 The workflow implementation requires the following pipelines for GitHub Actions at `.github/workflows`
 * `check.yml` checks the quality of proposed changes. It is executed for each pull request and its commits.

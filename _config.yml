@@ -1,9 +1,9 @@
 title: ""
-logo: /doc/assets/images/icon.v3.svg
+logo: /assets/images/icon.v3.svg
 description: |
   https://assay.it documentation
 
-baseurl: ""
+baseurl: /doc
 url: https://assay.it/doc
 
 theme: just-the-docs
