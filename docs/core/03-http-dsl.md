@@ -4,7 +4,7 @@ title: HTTP style and syntax
 description: |
   The composition of HTTP protocol is achieved from reusable primitive elements. All together they defines DSL syntax and coding style for Behavior as a Code.
 parent: core
-permalink: /docs/core/style
+permalink: /core/style
 nav_order: 3
 ---
 

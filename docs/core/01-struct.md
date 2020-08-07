@@ -4,7 +4,7 @@ title: Suite structure
 description: |
   The suite is a Golang program of certain structure. It implements collection of function, each declares cause-and-effect of networking I/O.
 parent: core
-permalink: /docs/core/suite
+permalink: /core/suite
 nav_order: 1
 ---
 

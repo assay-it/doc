@@ -3,7 +3,7 @@ layout: default
 title: GitHub Actions
 parent: use with
 nav_order: 1
-permalink: /docs/usage/github-actions
+permalink: /usage/github-actions
 ---
 
 # GitHub Actions

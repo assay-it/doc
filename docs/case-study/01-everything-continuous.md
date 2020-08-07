@@ -5,7 +5,7 @@ description: |
   Everything is Continuous emphasizes deployment and quality assessment as a key feature along the development process
 parent: case studies
 nav_order: 2
-permalink: /docs/workflows/everything-is-continuous
+permalink: /workflows/everything-is-continuous
 ---
 
 # Everything is Continuous

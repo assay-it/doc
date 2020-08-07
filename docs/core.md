@@ -3,7 +3,7 @@ layout: default
 title: core
 description: |
   A pure functional Golang style is core, human-friendly syntax to compose a chain of networking and represent them as pure computation.
-permalink: /docs/core
+permalink: /core
 nav_order: 3
 has_children: true
 ---
