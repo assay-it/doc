@@ -5,7 +5,7 @@ description: |
   Everything is Continuous emphasizes deployment and quality assessment as a key feature along the development process
 parent: case studies
 nav_order: 2
-permalink: /workflows/everything-is-continuous
+permalink: /case-study/everything-is-continuous
 ---
 
 # Everything is Continuous
@@ -14,7 +14,7 @@ permalink: /workflows/everything-is-continuous
 {:toc}
 
 
-Modern software engineering is talking about Continuous Integration, Continuous Delivery and Continuous Deployment. Why should we distinguish them? **"Everything is Continuous"** defines a right philosophy and commitment that ensures the always ready state of your code. It also implements pipelines to deploy every commit straight to sandbox with the following promotion to production. We have discussed this workflow in our [blog post](/2020/07/01/Everything-is-Continuous.html).
+Modern software engineering is talking about Continuous Integration, Continuous Delivery and Continuous Deployment. Why should we distinguish them? **"Everything is Continuous"** defines a right philosophy and commitment that ensures the always ready state of your code. It also implements pipelines to deploy every commit straight to sandbox with the following promotion to production. We have discussed this workflow in our [blog post](https://assay.it/case%20study/continuous%20deployment/2020/07/01/everything-is-continuos/).
 
 **"Everything is Continuous"** does not invent any special workflow. It just emphasizes deployment and quality assessment as a key feature along the development process. Continuous proofs of the quality helps to eliminate defects at earlier phases of the feature lifecycle. It impacts on engineering teams philosophy and commitments, ensuring that your microservice(s) are always in a release-ready state. The right implementation of the workflow deploys every commit to disposable sandbox environment with the following promotion to production.
 

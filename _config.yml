@@ -1,5 +1,5 @@
 title: ""
-logo: /assets/images/icon.v3.svg
+logo: /doc/assets/images/icon.v3.svg
 description: |
   https://assay.it documentation
 
@@ -14,7 +14,7 @@ search_enabled: true
 
 aux_links:
   "Blog":
-    - "/blog"
+    - "https://assay.it/blog"
   "Community":
     - "https://assay-it.slack.com/"
   "Twitter":
@@ -22,10 +22,10 @@ aux_links:
   "GitHub":
     - "https://github.com/assay-it"
 
-footer_content: "Copyright &copy; 2019 - 2020 <img src=/assets/images/icon.v3.svg width=19 height=19 /> Assay It "
+footer_content: "Copyright &copy; 2019 - 2020 <img src=/doc/assets/images/icon.v3.svg width=19 height=19 /> Assay It "
 
 gh_edit_link: true # show or hide edit this page link
 gh_edit_link_text: "Edit this page"
-gh_edit_repository: "https://github.com/assay-it/assay-it.github.io" # the github URL for your repo
+gh_edit_repository: "https://github.com/assay-it/doc" # the github URL for your repo
 gh_edit_branch: "master" # the branch that your docs is served from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
