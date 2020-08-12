@@ -7,6 +7,7 @@ description: |
 permalink: /
 ---
 
+
 # Objective prove of microservice quality
 {: .fs-9 }
 
