@@ -194,4 +194,4 @@ This simple workflow delivers few measurable benefits to your team:
 
 * **Increase Speed** of iteration cycles. It shortens delivery time and unlocks an opportunity to release software at any point in time.
 
-Please admit that this skips definition of actual quality assessment suites. Please check [the core](/core) module for details about Behavior as a Code development or see [our example on GitHub](https://github.com/assay-it/example.assay.it).
+Please admit that this skips definition of actual quality assessment suites. Please check [the core](/doc/core) module for details about Behavior as a Code development or see [our example on GitHub](https://github.com/assay-it/example.assay.it).

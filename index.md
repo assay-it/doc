@@ -40,7 +40,7 @@ Want to jump right into using [**https://assay.it**](https://assay.it)? Follow t
 
 2. To start quality assessments with [https://assay.it](https://assay.it), you need a git repository, which hosts your BaC suites.
 
-3. The suite is a simple Golang program built around [http combinator library](https://github.com/fogfish/gurl). Please check  details about [syntax and api](/core).
+3. The suite is a simple Golang program built around [http combinator library](https://github.com/fogfish/gurl). Please check  details about [syntax and api](/doc/core).
 
 4. Use standard Golang import declaration to include core libraries and its peer dependencies
 ```go
@@ -73,7 +73,7 @@ func TestOk() gurl.Arrow {
 
 7. See complete example of [suite.go](https://github.com/assay-it/sample.assay.it/blob/master/suite.go). 
 
-8. Create a configuration file [`.assay.json`](/docs/core)
+8. Create a configuration file [`.assay.json`](/doc/core)
 ```json
 {
   "suites": ["suite.go"]
@@ -94,4 +94,4 @@ Look into advanced examples on GitHub. It shows more complex examples, talks abo
 
 Study How To code "Behavior as a Code"
 
-[Syntax and API](/docs/core){: .btn .fs-5 .mb-4 .mb-md-0 }
+[Syntax and API](/doc/core){: .btn .fs-5 .mb-4 .mb-md-0 }
