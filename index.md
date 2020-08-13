@@ -8,10 +8,10 @@ permalink: /
 ---
 
 
-# Objective prove of microservice quality
+# Confirm Quality, Eliminate Risks.
 {: .fs-9 }
 
-We build [**https://assay.it**](https://assay.it) to help developers with quality assessment of microservices in the distributed environment. The service is designed to perform a formal and objective proof of the quality using Behavior as a Code paradigm.
+Loosely coupled system relies on interface syntax and its behavior. Usage of the automated solution for quality assessment of these service topologies is the right testing strategy to increase speed and reduce costs. [**https://assay.it**](https://assay.it) is designed to perform a formal and objective proof of the quality using Behavior as a Code paradigm.
 {: .fs-6 .fw-300 }
 
 [Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/assay-it/sample.assay.it){: .btn .fs-5 .mb-4 .mb-md-0 }
