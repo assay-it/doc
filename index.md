@@ -8,60 +8,21 @@ permalink: /
 ---
 
 
-# Confirm Quality, Eliminate Risks.
+# Confirm Quality, Eliminate Risks
 {: .fs-9 }
 
-Loosely coupled system relies on interface syntax and its behavior. Usage of the automated solution for quality assessment of these service topologies is the right testing strategy to increase speed and reduce costs. [**https://assay.it**](https://assay.it) is designed to perform a formal and objective proof of the quality using Behavior as a Code paradigm.
+Learn about quality assessments of Serverless applications with assay.it
 {: .fs-6 .fw-300 }
-
-[Get started now](#getting-started){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 } [View it on GitHub](https://github.com/assay-it/sample.assay.it){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 ---
 
-Microservices have become a design style to evolve systems architecture in parallel,
-implement stable and consistent interfaces. This architecture style brings additional
-complexity and new problems. One of them is the assessment of system behavior while its
-components communicate over the network - like integration testing but for distributed
-environment. We need an ability to quantitatively evaluate and trade-off architecture
-to ensure quality of the solutions.
+## Quick Start
 
-[**https://assay.it**](https://assay.it) is designed to perform a formal (objective)
-proofs of the quality using Behavior as a Code (BaC) paradigm. It connects cause-and-effect
-(Given/When/Then) to the networking concepts (Input/Process/Output). The expected
-behavior of each network component is declared using a simple Golang program.
+[**https://assay.it**](https://assay.it) is a Software as a Service for developers to perform formal proofs of quality using type safe Behavior as a Code. It automates validation of cause-and-effect in loosely coupled topologies such as serverless applications, microservices and other systems that rely on interface syntaxes and its behaviors. It emphasizes deployment and quality assessment as a key feature along the development pipelines. Continuous proofs of the quality helps to eliminate defects at earlier phases of the feature lifecycle. It impacts on engineering teams philosophy and commitments, ensuring that your microservice(s) are always in a release-ready state.
 
+1. **Sign up for [assay.it](https://assay.it)** with your GitHub developer account. Initially, the service requires only access to your public profile, public repositories and access to commit status of connected repositories. Later, you can enable quality assessments of private repositories.  
 
-## Getting started
-
-Want to jump right into using [**https://assay.it**](https://assay.it)? Follow the steps below to have an environment up and running. You can also continue with example on GitHub
-
-[View it on GitHub](https://github.com/assay-it/sample.assay.it){: .btn .fs-5 .mb-4 .mb-md-0 }
-
-1. Sign Up for [https://assay.it](https://assay.it) with your GitHub account.
-
-2. To start quality assessments with [https://assay.it](https://assay.it), you need a git repository, which hosts your BaC suites.
-
-3. The suite is a simple Golang program built around [http combinator library](https://github.com/fogfish/gurl). Please check  details about [syntax and api](/doc/core).
-
-4. Use standard Golang import declaration to include core libraries and its peer dependencies
-```go
-import (
-	"github.com/fogfish/gurl"
-	ƒ "github.com/fogfish/gurl/http/recv"
-	ø "github.com/fogfish/gurl/http/send"
-)
-```
-
-5. Each suite implements a few quality assessments. Each is a function of the form `func TestXxx() gurl.Arrow`.
-```go
-func TestOk() gurl.Arrow {
-	return gurl.HTTP(
-		// ...
-	)
-}
-```
-
-6. The quality assessments use cause-and-effect concept to declare HTTP I/O and expected response. 
+2. **Fork [assay-it/sample.assay.it](https://github.com/assay-it/sample.assay.it)** to your own GitHub account and then add to the service workspace. The example implements a minimal quality assessment job using [category pattern](./core/category) to connect cause-and-effect (Given/When/Then) with the networking concepts (Input/Process/Output). Just write [pure functional code](./core/) instead of clicking through UI or maintaining endless XML, YAML or JSON documents.
 ```go
 func TestOk() gurl.Arrow {
 	return gurl.HTTP(
@@ -70,29 +31,13 @@ func TestOk() gurl.Arrow {
 		ƒ.Header("Content-Type").Is("text/html"),
 	)
 }
-```  
-
-7. See complete example of [suite.go](https://github.com/assay-it/sample.assay.it/blob/master/suite.go). 
-
-8. Create a configuration file [`.assay.json`](/doc/core)
-```json
-{
-  "suites": ["suite.go"]
-}
 ```
 
-9. Integrate your repository with [https://assay.it](https://assay.it) at Settings of Your Account.
+3. **Launch the quality assessment** through the user interface. The service schedules the job and returns results of assessments in a few seconds. Here, a manual job trigger is used for ad-hoc and illustration purposes. [assay.it](https://assay.it) supports integration with CI/CD so that [continuous quality evaluation](./case-study/everything-is-continuous/) is a part of the development culture. 
+![](/doc/assets/images/screen.png)
 
-7. Enjoy the results!
 
----
+## Further Reading
 
-## Next Steps
+Please continue to [the core](/doc/core) sections for details about Behavior as a Code development and see [our advanced example on GitHub](https://github.com/assay-it/example.assay.it).
 
-Look into advanced examples on GitHub. It shows more complex examples, talks about integration with CI\CD and depict the typical workflow.
-
-[View it on GitHub](https://github.com/assay-it/example.assay.it){: .btn .fs-5 .mb-4 .mb-md-0 }
-
-Study How To code "Behavior as a Code"
-
-[Syntax and API](/doc/core){: .btn .fs-5 .mb-4 .mb-md-0 }
