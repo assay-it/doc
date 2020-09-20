@@ -14,6 +14,8 @@ permalink: /
 Learn about quality assessments of Serverless applications with assay.it
 {: .fs-6 .fw-300 }
 
+[Sign In with GitHub](https://github.com/login/oauth/authorize?client_id=6941f2acf659df65f37e&response_type=code&scope=repo%3Astatus&state=%7B%22vsn%22%3A%22v6%22%2C%22cid%22%3A%226941f2acf659df65f37e%22%2C%22url%22%3A%22https%3A%2F%2Fapi.assay.it%2Fauth%2Fhook%2Fgithub%22%2C%22acc%22%3A%22oss%22%2C%22upg%22%3Afalse%7D){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
+
 ---
 
 ## Quick Start
@@ -24,10 +26,10 @@ Learn about quality assessments of Serverless applications with assay.it
 
 2. **Fork [assay-it/sample.assay.it](https://github.com/assay-it/sample.assay.it)** to your own GitHub account and then add to the service workspace. The example implements a minimal quality assessment job using [category pattern](./core/category) to connect cause-and-effect (Given/When/Then) with the networking concepts (Input/Process/Output). Just write [pure functional code](./core) instead of clicking through UI or maintaining endless XML, YAML or JSON documents.
 ```go
-func TestOk() gurl.Arrow {
-	return gurl.HTTP(
+func TestOk() assay.Arrow {
+	return http.Join(
 		ø.GET("https://assay.it"),
-		ƒ.Code(gurl.StatusCodeOK),
+		ƒ.Code(http.StatusCodeOK),
 		ƒ.Header("Content-Type").Is("text/html"),
 	)
 }

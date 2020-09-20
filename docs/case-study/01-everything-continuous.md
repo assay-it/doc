@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Everything is Continuous
+title: A simple strategy on continuous quality automation
 description: |
   Everything is Continuous emphasizes deployment and quality assessment as a key feature along the development process
 parent: case studies
@@ -8,7 +8,7 @@ nav_order: 2
 permalink: /case-study/everything-is-continuous
 ---
 
-# Everything is Continuous
+# A simple strategy on continuous quality automation
 
 1. TOC
 {:toc}
@@ -113,9 +113,22 @@ This action just injects credentials into the pipeline's environment. You still 
     npm -C cloud install
     npm -C cloud run \
       cdk -- deploy example-pr${{ github.event.number }} \
-        -c vsn=pr${{ github.event.number }}
+        -c vsn=pr${{ github.event.number }} \
+        --outputs-file $GITHUB_WORKSPACE/stack.json
 ```
 {% endraw %}
+
+After the completion of deployment, endpoint address needs to be resolved from the output of CDK command.
+
+{% raw %}
+```yml
+- name: discover
+  id: discover
+  run: |
+    echo ::set-output name=target::$(jq -r '.["example-v${{ github.event.number }}"] | to_entries | .[] | select(.key|test("GatewayEndpoint.*")) | .value ' < $GITHUB_WORKSPACE/stack.json)
+```
+{% endraw %}
+
 
 Once the sandbox environment is ready, the quality assessment begins. GitHub Actions anchors [https://assay.it](https://assay.it) though WebHook API. We have implemented an action [assay-it/github-actions-webhook](https://github.com/assay-it/github-actions-webhook) to trigger quality assessment for you:
 
@@ -124,6 +137,7 @@ Once the sandbox environment is ready, the quality assessment begins. GitHub Act
 - uses: assay-it/github-actions-webhook@latest
   with:
     secret: ${{ secrets.ASSAY_SECRET_KEY }}
+    target: ${{ steps.discover.outputs.target }}
 ```
 {% endraw %}
 

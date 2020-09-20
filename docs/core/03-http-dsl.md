@@ -1,6 +1,6 @@
 ---
 layout: default
-title: HTTP style and syntax
+title: HTTP I/O syntax 
 description: |
   The composition of HTTP protocol is achieved from reusable primitive elements. All together they defines DSL syntax and coding style for Behavior as a Code.
 parent: core
@@ -8,14 +8,17 @@ permalink: /core/style
 nav_order: 3
 ---
 
-# Coding style and syntax of HTTP protocol
-
-`gurl.HTTP(arrows ...gurl.Arrow) gurl.Arrow` builds higher-order HTTP closure, so called `gurl.Arrow`, from primitive elements.
+# HTTP: coding style and syntax
 
 ```go
-gurl.HTTP(
+http.Join(arrows ...http.Arrow) assay.Arrow
+```
+builds higher-order HTTP closure, so called `assay.Arrow`, from primitive elements.
+
+```go
+http.Join(
   ø.GET("https://assay.it"),
-  ƒ.Code(gurl.StatusCodeOK),
+  ƒ.Code(http.StatusCodeOK),
   ƒ.Header("Content-Type").Is("text/html"),
 )
 ```
@@ -30,15 +33,15 @@ Any suite requires at least these three modules:
 
 ```go
 import (
-  "github.com/fogfish/gurl"
-  ƒ "github.com/fogfish/gurl/http/recv"
-  ø "github.com/fogfish/gurl/http/send"
+  "github.com/assay-it/sdk-go/http"
+  ƒ "github.com/assay-it/sdk-go/http/recv"
+  ø "github.com/assay-it/sdk-go/http/send"
 )
 ```
 
 ## Writer
 
-Symbol ø (option + o) is an convenient alias to module [gurl/http/send](https://github.com/fogfish/gurl/blob/master/http/send/arrows.go), which defines writer morphism that focuses inside and reshapes HTTP protocol request. The writer morphism is used to declare HTTP method, destination URL, request headers and payload.
+[Writer morphism (Symbol ø)](https://github.com/assay-it/sdk-go/blob/main/http/send/arrows.go) focuses inside and reshapes HTTP protocol request. The writer morphism is used to declare HTTP method, destination URL, request headers and payload.
 
 
 ### Method & URL
@@ -78,12 +81,12 @@ lit := "test"
 
 ### Query Params
 
-It is possible to use inline query parameters:
+It is possible to use inline query parameters but it is not a type safe approach:
 ```go
 ø.GET("http://example.com/?tag=%s", "test")
 ```
 
-However, that method do not implement any type safeness. The library implement an arrow `ø.Params`. It takes a struct serializes it to string and appends query params. You are able to define proper types for your api:
+The SDK implement an arrow `ø.Params`. It takes a struct serializes it to string and appends query params. You are able to define proper types for your api:
 
 ```go
 type MyParam struct {
@@ -133,14 +136,15 @@ Only following content types supported:
 
 ## Reader
 
-Symbol ƒ (option + f) is an convenient alias to module [gurl/http/recv](https://github.com/fogfish/gurl/blob/master/http/recv/arrows.go), which defines reader morphism that focuses into side-effect, HTTP protocol response. The reader morphism is a pattern matcher, is used to match HTTP response code, headers and response payload. It helps us to declare our expectations on the response.
+[Reader morphism (Symbol ƒ)](https://github.com/assay-it/sdk-go/blob/main/http/recv/arrows.go) focuses into side-effect, HTTP protocol response. The reader morphism is a pattern matcher, is used to match HTTP response code, headers and response payload. 
+
 
 ### Status Code
 
-Each quality assessment have to declare expected status code(s). The primitive `ƒ.Code` takes one or few [HTTP Status Codes](https://github.com/fogfish/gurl/blob/master/static.go). The assessment fails if microservice responds with other status.
+Each quality assessment have to declare expected status code(s). The primitive `ƒ.Code` takes one or few [HTTP Status Codes](https://github.com/assay-it/sdk-go/blob/main/http/status.go). The assessment fails if microservice responds with other status.
 
 ```go
-ƒ.Code(gurl.StatusCodeOK)
+ƒ.Code(http.StatusCodeOK)
 ```
 
 ### Headers
@@ -188,88 +192,3 @@ var data []byte
 ƒ.Bytes(&data)
 ```
 
-### Focus on the value
-
-The quality assessment shall not only check the status of HTTP I/O but also assert the response value. There are few helper primitives. These primitives acts as lense they are focuses inside the structure and fetches values.
-
-```go
-var data MyType
-ƒ.Recv(&data)
-
-// checks if the value is defined (shall use pointer)
-ƒ.Defined(&data.Site)
-
-// checks if the value matches excepted one
-ƒ.Value(&data).Is(&MyType{Site: "site", Host: "host"})
-// checks if the value matches string literal
-ƒ.Value(&data.Site).String("site")
-ƒ.Value(/* ... */).Bytes([]byte{1, 2, 3, 4})
-```
-
-### Focus on the sequence
-
-`ƒ.Value` lens has a limitation while working with sequences. It is not able to focus into distinct element, you should use `ƒ.Seq` instead.   
-
-```go
-var data Seq
-
-// lookups element in the sequence
-ƒ.Seq(&data).Has("site")
-// lookups element in the sequence and matches it against expected value
-ƒ.Seq(&data).Has("site", MyType{Site: "site", Host: "host"})
-```
-
-Your data type needs to implement `gurl.Ord` interface.
-
-```go
-type Ord interface {
-  sort.Interface
-  // String return primary key as string type
-  String(int) string
-  // Value return value at index
-  Value(int) interface{}
-}
-```
-
-`gurl.Ord` extends `sort.Interface` with ability to lookup element by string. In this example, the microservice returns sequence of elements. The lens `Seq` and `Has` focuses on the required element. A reference implementation of the interface is
-
-```go
-  type Seq []MyType
-
-  func (c Seq) Len() int                { return len(c) }
-  func (c Seq) Swap(i, j int)           { c[i], c[j] = c[j], c[i] }
-  func (c Seq) Less(i, j int) bool      { return c[i].Site < c[j].Site }
-  func (c Seq) String(i int) string     { return c[i].Site }
-  func (c Seq) Value(i int) interface{} { return c[i] }
-```
-
-
-### Custom quality check
-
-Often, you need to write a small function to apply a custom check on the received value. These custom functions shall be composable within the category pattern. Let's consider a previous example.
-
-Your assessment has successfully received the sequence of elements into seq variable. We need to write a small function that extracts first elements from the sequence. A following traditional coding style does not work
-
-```go
-var seq Seq
-gurl.HTTP(
-  /* ... */
-  ƒ.Recv(&seq)
-)
-head := seq[0]
-```
-
-The sequence is not "materialized" yet at the moment when `gurl.HTTP(...)` returns. It only returns a "promise" of HTTP I/O which is materialized later. Therefore, any computation have to be lifted-and-composed with this promise. `ƒ.FMap` does it. `ƒ.FMap` takes a closure and applies it to the results of network communication:
-
-```go
-var seq Seq
-var head MyType
-gurl.HTTP(
-  /* ... */
-  ƒ.Recv(&seq)
-  ƒ.FMap(func() error {
-    head := seq[0]
-    return nil
-  })
-)
-```

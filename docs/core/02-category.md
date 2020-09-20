@@ -14,7 +14,7 @@ nav_order: 2
 
 The composition is a style of development to build a new things from small reusable elements. There is a challenge with standard Golang HTTP package. It implements low-level interface, which requires boilerplate code, and absence of advanced requests compositions.   
 
-[**https://assay.it**](https://assay.it) uses a [gurl](https://github.com/fogfish/gurl) library. This library inherits an ability of pure functional languages to express communication behavior by hiding the networking complexity using category pattern. This pattern helps us to compose a chain of network operations and represent them as pure computation, build a new things from small reusable elements. This pattern is well know in functional programming languages such as Haskell and Scala but it ia a new thing for Golang.
+[**https://assay.it**](https://assay.it) implements [**Golang SDK**](https://github.com/assay-it/sdk-go). This SDK inherits an ability of pure functional languages to express communication behavior by hiding the networking complexity using category pattern. This pattern helps us to compose a chain of network operations and represent them as pure computation, build a new things from small reusable elements. This pattern is well know in functional programming languages such as Haskell and Scala but it is a new thing for Golang.
 
 
 ## Background
@@ -35,45 +35,50 @@ The category leaves the definition of *object*, *arrows*, *composition* and *ide
 A composition of HTTP primitives within the category are written with the following syntax:
 
 ```go
-  gurl.HTTP(arrows ...gurl.Arrow) gurl.Arrow
+assay.Join(arrows ...assay.Arrow) assay.Arrow
 ```
 
-Here, each arrow is a morphism applied to HTTP protocol. The implementation defines an abstraction of the protocol environments and lenses to focus inside it. In other words, the category represents the environment as an "invisible" side-effect of the composition. The example definition of HTTP I/O within the category becomes
+Here, each arrow is a morphism applied either to protocol to results of I/O. The implementation defines an abstraction of the protocol environments and lenses to focus inside it. In other words, the category represents the environment as an "invisible" side-effect of the composition. The example definition of HTTP I/O within the category becomes
 
 ```go
-gurl.HTTP(
-  ø..., 
-  ø...,
+assay.Join(
+  http.Join(
+    ø...,         // > GET / HTTP/1.1
+    ø...,         // > Host: assay.it
+    ø...,         // > Accept: text/html
 
-  ƒ...,
-  ƒ...,
+    ƒ...,         // < HTTP/1.1 200 OK
+    ƒ...,         // < Server: ECS (phd/FD58)
+  )
 )
 ```
 
-Symbol ø (option + o) is an convenient alias to module [gurl/http/send](https://github.com/fogfish/gurl/blob/master/http/send/arrows.go), which defines writer morphism that focuses inside and reshapes HTTP protocol request. The writer morphism is used to declare HTTP method, destination URL, request headers and payload.
+Symbol ø is an convenient alias to [writer morphism](https://github.com/assay-it/sdk-go/blob/main/http/send/arrows.go) that focuses inside and reshapes HTTP protocol request. The writer morphism is used to declare HTTP method, destination URL, request headers and payload.
 
-Symbol ƒ (option + f) is an convenient alias to module [gurl/http/recv](https://github.com/fogfish/gurl/blob/master/http/recv/arrows.go), which defines reader morphism that focuses into side-effect, HTTP protocol response. The reader morphism is a pattern matcher, is used to match HTTP response code, headers and response payload. It helps us to declare our expectations on the response. The evaluation of "program" fails if expectations do not match actual response.
+Symbol ƒ is an convenient alias to [reader morphism](https://github.com/assay-it/sdk-go/blob/main/http/recv/arrows.go) that focuses into side-effect, HTTP protocol response. The reader morphism is a pattern matcher, is used to match HTTP response code, headers and response payload. 
 
-The composition is one of major reason why we deviate from standard Golang HTTP interface. Instances of `gurl.Arrow` type are composable "promises" of HTTP I/O. The composition of `𝒇 ◦ 𝒈 ⟼ gurl.Arrow` leads results of same type and so on.
+The SDK also helps us to declare our expectations on the response. The evaluation of "program" fails if expectations do not match actual response.
+
+The composition is one of major reason why we deviate from standard Golang HTTP interface. Instances of `assay.Arrow` type are composable "promises" of HTTP I/O. The composition of `𝒇 ◦ 𝒈 ⟼ assay.Arrow` leads results of same type and so on.
 
 ```go
-gurl.Join(
-  gurl.HTTP(/* ... */),
-  gurl.HTTP(/* ... */),
+assay.Join(
+  http.Join(/* ... */),
+  http.Join(/* ... */),
 )
 ```
 
-Essentially, the quality assessment is just set of `gurl.Arrow` functions - Behavior as a Code in other words.
+Essentially, the quality assessment is just set of `assay.Arrow` functions - Behavior as a Code in other words.
 
 ```go
-func TestFoo() gurl.Arrow {
-  return gurl.HTTP(/* ... */)
+func MyFoo() assay.Arrow {
+  return http.Join(/* ... */)
 }
 
-func TestBar() gurl.Arrow {
-  return gurl.Join(
-    gurl.HTTP(/* ... */),
-    gurl.HTTP(/* ... */),
+func MyBar() assay.Arrow {
+  return assay.Join(
+    http.HTTP(/* ... */),
+    http.HTTP(/* ... */),
   )
 }
 ```
