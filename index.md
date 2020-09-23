@@ -24,7 +24,7 @@ Learn about quality assessments of Serverless applications with assay.it
 
 1. **Sign up for [assay.it](https://assay.it)** with your GitHub developer account. Initially, the service requires only access to your public profile, public repositories and access to commit status of connected repositories. Later, you can enable quality assessments of private repositories.  
 
-2. **Fork [assay-it/sample.assay.it](https://github.com/assay-it/sample.assay.it)** to your own GitHub account and then add to the service workspace. The example implements a minimal quality assessment job using [category pattern](./core/category) to connect cause-and-effect (Given/When/Then) with the networking concepts (Input/Process/Output). Just write [pure functional code](./core) instead of clicking through UI or maintaining endless XML, YAML or JSON documents.
+2. **Fork [assay-it/blueprint-suite](https://github.com/assay-it/blueprint-suite)** to your own GitHub account and then add to the service workspace. The example implements a minimal quality assessment job using [category pattern](./core/category) to connect cause-and-effect (Given/When/Then) with the networking concepts (Input/Process/Output). Just write [pure functional code](./core) instead of clicking through UI or maintaining endless XML, YAML or JSON documents.
 ```go
 func TestOk() assay.Arrow {
 	return http.Join(
@@ -41,5 +41,5 @@ func TestOk() assay.Arrow {
 
 ## Further Reading
 
-Please continue to [the core](/doc/core) sections for details about Behavior as a Code development and see [our advanced example on GitHub](https://github.com/assay-it/example.assay.it).
+Please continue to [the core](/doc/core) sections for details about Behavior as a Code development and see [our advanced example on GitHub](https://github.com/assay-it/blueprint-continuous-quality).
 

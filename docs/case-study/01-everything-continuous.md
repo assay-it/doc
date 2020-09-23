@@ -43,7 +43,7 @@ Let's consider the workflow implementation with GitHub Actions and AWS CDK, [htt
 10. [https://assay.it](https://assay.it) make a formal proof of the live environment.
 
 
-[View it on GitHub](https://github.com/assay-it/example.assay.it){: .btn .fs-5 .mb-4 .mb-md-0 }
+[View it on GitHub](https://github.com/assay-it/blueprint-continuous-quality){: .btn .fs-5 .mb-4 .mb-md-0 }
 
 GitHub Actions anchors [https://assay.it](https://assay.it) though WebHook API. Results of quality assessment are communicated back to Pull Request (each commit is annotated) and details are visible at service itself.
 
@@ -87,7 +87,7 @@ on:
       - synchronize
 ```
 
-Usually pipelines contain a lot of various build, compile, lint and unit tests. We are going to omit them because they are language/runtime dependent. Please see [our example on GitHub](https://github.com/assay-it/example.assay.it) about Golang. Let's jump directly to continuous deployment and quality assessment.
+Usually pipelines contain a lot of various build, compile, lint and unit tests. We are going to omit them because they are language/runtime dependent. Please see [our example on GitHub](https://github.com/assay-it/blueprint-continuous-quality) about Golang. Let's jump directly to continuous deployment and quality assessment.
 
 Before anythings happens with deployment, we need to configure **access to AWS**. We are using [official aws action](https://github.com/aws-actions/configure-aws-credentials).
 
@@ -208,4 +208,4 @@ This simple workflow delivers few measurable benefits to your team:
 
 * **Increase Speed** of iteration cycles. It shortens delivery time and unlocks an opportunity to release software at any point in time.
 
-Please admit that this skips definition of actual quality assessment suites. Please check [the core](/doc/core) module for details about Behavior as a Code development or see [our example on GitHub](https://github.com/assay-it/example.assay.it).
+Please admit that this skips definition of actual quality assessment suites. Please check [the core](/doc/core) module for details about Behavior as a Code development or see [our example on GitHub](https://github.com/assay-it/blueprint-continuous-quality).
