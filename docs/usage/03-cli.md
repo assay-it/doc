@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Command Line Application
+description: Built automation pipelines and CI/CD integrations with assay command line utility
 parent: use with
 nav_order: 3
 permalink: /usage/cli
