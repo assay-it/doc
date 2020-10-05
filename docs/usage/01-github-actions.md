@@ -1,6 +1,7 @@
 ---
 layout: default
 title: GitHub Actions
+description: assay.it provides a GitHub Actions to automated quality assessment pipelines 
 parent: use with
 nav_order: 1
 permalink: /usage/github-actions
@@ -18,8 +19,7 @@ One line integration with GitHub Actions using ready-made action.
 Please follows [official GitHub Actions documentation](https://docs.github.com/en/actions) for details about pipeline definition. 
 
 
-[assay.it](https://assay.it) implements the action `assay-it/github-actions-webhook@latest` that triggers a quality assurance for your change. The actions requires explicit **permission** for GitHub actions 
-to run the job at assay.it on your behalf, *an access key is requires*. Go to your profile settings at assay.it and generate a new personal access key. Store this key to secret key vault at settings of your repository (Your Repo > Settings > Secrets) under the name `ASSAY_SECRET_KEY`.
+[assay.it](https://assay.it) implements the action `assay-it/github-actions-webhook@latest` that triggers a quality assurance for your change. The actions requires explicit **permission** for GitHub actions to run the job at assay.it on your behalf, *an access key is requires*. Go to your profile settings at assay.it and generate a new personal access key. Store this key to secret key vault at settings of your repository (Your Repo > Settings > Secrets) under the name `ASSAY_SECRET_KEY`.
 
 Add the following build step into your pipeline:
 
