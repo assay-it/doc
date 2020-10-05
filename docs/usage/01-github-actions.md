@@ -1,7 +1,7 @@
 ---
 layout: default
 title: GitHub Actions
-description: assay.it provides a GitHub Actions to automated quality assessment pipelines 
+description: assay.it provides a ready-made GitHub Actions to automated quality assessment pipelines 
 parent: use with
 nav_order: 1
 permalink: /usage/github-actions
