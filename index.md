@@ -3,7 +3,13 @@ layout: default
 title: assay.it
 nav_order: 2
 description: |
-  Learn with doc about quality assessments of Serverless applications with assay.it using typesafe pure functional Behavior as a Code paradigm.
+	Learn about quality assessments of Serverless applications with assay.it using typesafe pure functional Behavior as a Code paradigm.
+tags:
+	- quality
+	- serverless
+	- doc
+	- typesafe
+	- pure functional
 permalink: /
 ---
 
