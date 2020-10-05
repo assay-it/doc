@@ -3,7 +3,7 @@ layout: default
 title: assay.it
 nav_order: 2
 description: |
-  https://assay.it makes a formal quality assessment of microservices in the distributed environment using Behavior as a Code paradigm.
+  Learn with doc about quality assessments of Serverless applications with assay.it using typesafe pure functional Behavior as a Code paradigm.
 permalink: /
 ---
 
