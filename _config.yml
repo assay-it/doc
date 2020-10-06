@@ -14,7 +14,7 @@ search_enabled: true
 
 aux_links:
   "Blog":
-    - "https://assay.it/blog"
+    - "https://assay.it/blog/"
   "Community":
     - "https://assay-it.slack.com/"
   "Twitter":
