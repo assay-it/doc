@@ -2,9 +2,9 @@
 layout: default
 title: Command Line Application
 description: Built automation pipelines and CI/CD integrations with assay command line utility
-parent: use with
+parent: usage and integrations
 nav_order: 3
-permalink: /usage/cli
+permalink: /usage-and-integrations/command-line-application
 ---
 
 # Command Line Application

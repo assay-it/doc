@@ -4,7 +4,7 @@ title: Category pattern
 description: | 
   A composition of HTTP primitives are expressed by the rules of category pattern. It represents networking as pure and re-usable computation.
 parent: core
-permalink: /core/category
+permalink: /core/category-pattern
 nav_order: 2
 ---
 

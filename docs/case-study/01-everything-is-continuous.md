@@ -1,20 +1,14 @@
 ---
 layout: default
-title: A simple strategy on continuous quality automation
+title: Continuous quality automation
 description: |
   Everything is Continuous emphasizes deployment and quality assessment as a key feature along the development process
-tags:
-  - everything is continuous
-  - continuous deployment
-  - continuous delivery
-  - quality assessment
-  - quality automation
-parent: case studies
+parent: case study
 nav_order: 2
-permalink: /case-study/everything-is-continuous
+permalink: /case-study/continuous-quality-automation
 ---
 
-# A simple strategy on continuous quality automation
+# Continuous quality automation
 
 1. TOC
 {:toc}

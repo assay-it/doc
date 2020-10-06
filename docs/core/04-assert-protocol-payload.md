@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Asserts and lenses
+title: Assert Protocol Payload
 description: |
   Quality assessment is not only about status of I/O protocols but also assert of responses. Generic category defines primitives that acts as lense to focus inside the structures and fetches values.
 parent: core
-permalink: /core/assert
+permalink: /core/assert-protocol-payload
 nav_order: 4
 ---
 
-# Asserts protocol results
+# Assert Protocol Payload
 
 Quality assessment is not only about status of I/O protocols but also assert of the response content. The SDK defines [**generic category**](https://github.com/assay-it/sdk-go/blob/main/cats/arrows.go). Its primitives acts as lense they are focuses inside the structure, fetches values and asserts them. These helpers abort the evaluation of "program" if expectations do not match actual response.
 

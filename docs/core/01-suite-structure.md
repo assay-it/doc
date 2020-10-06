@@ -4,7 +4,7 @@ title: Suite structure
 description: |
   The suite is a Golang program of certain structure. It implements collection of function, each declares cause-and-effect of networking I/O.
 parent: core
-permalink: /core/suite
+permalink: /core/suite-structure
 nav_order: 1
 ---
 
@@ -15,7 +15,7 @@ The suite implements a quality assessments as function of the form
 func MySuite() assay.Arrow
 ```
 
-Where `MySuite` is a unique name of the assessment. Each assessment declares cause-and-effect using [category pattern](./category):
+Where `MySuite` is a unique name of the assessment. Each assessment declares cause-and-effect using [category pattern](./category-pattern):
 * "Given" specifies the communication context and the known state of the expected behavior;
 * "When" executes key actions about the interaction with remote component;
 * "Then" observes output of remote component, validates its correctness and outputs results.

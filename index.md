@@ -3,13 +3,7 @@ layout: default
 title: assay.it
 nav_order: 2
 description: |
-	Learn about quality assessments of Serverless applications with assay.it using typesafe pure functional Behavior as a Code paradigm.
-tags:
-	- quality
-	- serverless
-	- doc
-	- typesafe
-	- pure functional
+  Learn about quality assessments of Serverless applications with assay.it using typesafe pure functional Behavior as a Code paradigm.
 permalink: /
 ---
 
@@ -30,7 +24,7 @@ Learn about quality assessments of Serverless applications with assay.it
 
 1. **Sign up for [assay.it](https://assay.it)** with your GitHub developer account. Initially, the service requires only access to your public profile, public repositories and access to commit status of connected repositories. Later, you can enable quality assessments of private repositories.  
 
-2. **Fork [assay-it/blueprint-suite](https://github.com/assay-it/blueprint-suite)** to your own GitHub account and then add to the service workspace. The example implements a minimal quality assessment job using [category pattern](./core/category) to connect cause-and-effect (Given/When/Then) with the networking concepts (Input/Process/Output). Just write [pure functional code](./core) instead of clicking through UI or maintaining endless XML, YAML or JSON documents.
+2. **Fork [assay-it/blueprint-suite](https://github.com/assay-it/blueprint-suite)** to your own GitHub account and then add to the service workspace. The example implements a minimal quality assessment job using [category pattern](./core/category-pattern) to connect cause-and-effect (Given/When/Then) with the networking concepts (Input/Process/Output). Just write [pure functional code](./core) instead of clicking through UI or maintaining endless XML, YAML or JSON documents.
 ```go
 func TestOk() assay.Arrow {
 	return http.Join(
@@ -41,7 +35,7 @@ func TestOk() assay.Arrow {
 }
 ```
 
-3. **Launch the quality assessment** through the user interface. The service schedules the job and returns results of assessments in a few seconds. Here, a manual job trigger is used for ad-hoc and illustration purposes. [assay.it](https://assay.it) supports integration with CI/CD so that [continuous quality evaluation](./case-study/everything-is-continuous) is a part of the development culture. 
+3. **Launch the quality assessment** through the user interface. The service schedules the job and returns results of assessments in a few seconds. Here, a manual job trigger is used for ad-hoc and illustration purposes. [assay.it](https://assay.it) supports integration with CI/CD so that [continuous quality evaluation](./case-study/continuous-quality-automation) is a part of the development culture. 
 ![](/doc/assets/images/screen.png)
 
 

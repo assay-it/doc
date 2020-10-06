@@ -1,14 +1,14 @@
 ---
 layout: default
-title: HTTP I/O syntax 
+title: HTTP style and syntax
 description: |
-  The composition of HTTP protocol is achieved from reusable primitive elements. All together they defines DSL syntax and coding style for Behavior as a Code.
+  The composition of HTTP protocol is achieved from reusable primitive elements. All together they defines syntax and coding style for Behavior as a Code.
 parent: core
-permalink: /core/style
+permalink: /core/http-style-and-syntax
 nav_order: 3
 ---
 
-# HTTP: coding style and syntax
+# HTTP Style and Syntax
 
 ```go
 http.Join(arrows ...http.Arrow) assay.Arrow
