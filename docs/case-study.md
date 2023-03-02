@@ -6,6 +6,7 @@ description: |
 nav_order: 4
 has_children: true
 permalink: /case-study
+nav_exclude: true
 ---
 
 # Case Study

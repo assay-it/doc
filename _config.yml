@@ -1,4 +1,4 @@
-title: Learn about quality of Serverless
+title: Learn about Test Cloud Apps in Production
 logo: /assets/images/icon.v3.svg
 description: |
   https://assay.it documentation
@@ -13,18 +13,19 @@ color_scheme: site
 search_enabled: true
 
 aux_links:
-  "Blog":
-    - "https://assay.it/blog/"
-  "Community":
-    - "https://assay-it.slack.com/"
+  # "Blog":
+  #   - "https://assay.it/blog/"
+  # "Community":
+  #   - "https://assay-it.slack.com/"
   "Twitter":
     - "https://twitter.com/ItAssay"
   "GitHub":
-    - "https://github.com/assay-it"
+    - "https://github.com/assay-it/assay-it"
 
 footer_content: |
-  Copyright &copy; 2019 - 2020 <img src="/doc/assets/images/icon.v3.svg" width="19" height="19" alt="Confirm Quality, Eliminate Risks with assay.it" /> Assay It
-  <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="74b6e951-dc7c-4744-b3fb-68eb8c599b82";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+  Copyright &copy; 2019 - 2023 <img src="/doc/assets/images/icon.v3.svg" width="19" height="19" alt="Confirm Quality, Eliminate Risks with assay.it" /> Assay It
+
+# <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="74b6e951-dc7c-4744-b3fb-68eb8c599b82";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 
 
 gh_edit_link: true # show or hide edit this page link

@@ -5,6 +5,7 @@ description: Construct automated quality assessment pipelines and integrate them
 nav_order: 5
 has_children: true
 permalink: /usage-and-integrations
+nav_exclude: true
 ---
 
 # Usage and Integrations
