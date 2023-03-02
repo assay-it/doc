@@ -6,7 +6,7 @@ description: |
 baseurl: /doc
 url: https://assay.it
 
-theme: just-the-docs
+# theme: just-the-docs
 remote_theme: fogfish/just-the-docs
 color_scheme: site
 
