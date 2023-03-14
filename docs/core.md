@@ -1,12 +1,11 @@
 ---
 layout: default
-title: core
+title: Introduction
 description: |
   A pure functional Golang style is core, human-friendly syntax to compose a chain of networking and represent them as pure computation.
 permalink: /core
 nav_order: 3
 has_children: true
-nav_exclude: true
 ---
 
 # Core

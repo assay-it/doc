@@ -28,7 +28,7 @@ Construct automated quality check pipelines for your applications, microservices
 
 The utility emphasizes continuous proofs of the quality as a key feature along the deployment pipelines to eliminate defects at earlier phases of the feature lifecycle. It impacts on engineering teams philosophy and commitments, ensuring that your microservice(s) are always in a release-ready state.
 
-Easiest way to install the latest version of utility using brew but binary builds are also available at [GitHub Releases](https://github.com/assay-it/assay-it/releases){: .btn .btn-primary }.
+Easiest way to install the latest version of utility using brew but binary builds are also available at [GitHub Releases](https://github.com/assay-it/assay-it/releases).
 
 ```bash
 brew tap assay-it/homebrew-tap
