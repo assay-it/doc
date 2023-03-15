@@ -47,6 +47,18 @@ Standard Golang library implement a low-level protocol interfaces, which require
 
 The development process of testing suites pitches for the composition of individual networking operations into pure computations.
 
+```go
+http.GET(                               // > GET /example HTTP/1.1
+  s.URI("http://example.com/example"),  // > Host: example.com
+  s.UserAgent.Set("curl/7.54.0"),       // > User-Agent: curl/7.54.0  
+  s.Accept.ApplicationJSON,             // > Accept: application/json
+
+  r.Status.OK,                          // < HTTP/1.1 200 OK
+  r.ContentType.TextHTML,               // < Content-Type: text/html; charset=UTF-8
+  r.Server.Is("ECS (phd/FD58)"),        // < Server: ECS (phd/FD58)
+  r.Body(/*...*/),                      // < ... 
+)
+```
 
 ## Use cases
 

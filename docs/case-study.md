@@ -3,7 +3,7 @@ layout: default
 title: case study
 description: |
   Case Studies puts a strong focus on continuous integration, continuous delivery and continuous deployment of microservices.
-nav_order: 4
+nav_order: 5
 has_children: true
 permalink: /case-study
 nav_exclude: true
