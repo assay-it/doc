@@ -5,7 +5,6 @@ description: |
   assay-it is testing tool for distributed application implemented with Go or other languages. It proposes a type safe and pure functional style for implementation of testing strategy. 
 permalink: /introduction
 nav_order: 3
-has_children: true
 ---
 
 # Introduction

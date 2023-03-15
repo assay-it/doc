@@ -4,7 +4,6 @@ title: How it works
 description: |
   Construct automated quality assessment pipelines and integrate them with various service, providers and tools.
 nav_order: 4
-has_children: true
 permalink: /how-it-works
 ---
 
@@ -27,7 +26,7 @@ Despite testing suites are written using Golang syntax, `assay-it` is proper cro
 
 ## Testing suites
 
-Testing suites are secret ingredient of the cookbook. It is a type safe, pure functional Golang source code files. Each file contains one or multiple test functions named TestXxx (where Xxx does not start with a lower case letter) and should have the signature,
+Testing suites are secret ingredient of the cookbook. It is a type safe, pure functional Golang source code files. Each file contains one or multiple test functions named `TestXxx` (where Xxx does not start with a lower case letter) and should have the signature,
 
 ```go
 func TestXxx() http.Arrow { /* ... */ } 
