@@ -1,6 +1,6 @@
 ---
 layout: default
-title: usage and integrations
+title: How it works
 description: |
   Construct automated quality assessment pipelines and integrate them with various service, providers and tools.
 nav_order: 4
@@ -8,7 +8,7 @@ has_children: true
 permalink: /how-it-works
 ---
 
-# How it Works
+# How it works
 
 `assay-it` aims to automate most of the boring work you'll have while executing testing of distributed application. 
 
