@@ -135,9 +135,7 @@ The `ø.URI` combinator is equivalent to `fmt.Sprintf`. It uses [percent encodin
 http.GET(
   ø.URI("http://example.com/%s", "foo bar"),
 )
-```
 
-```
 // All path segments are escaped by default, use ø.Authority or ø.Path
 // types to disable escaping
 
@@ -152,12 +150,34 @@ http.GET(
 )
 ```
 
-{: .warning }
-> BAD, DOES NOT WORK
->
-> `ø.URI("%s/%s", "http://example.com", "foo/bar")`
+#### Query Params
 
-{: .note }
-> GOOD, IT WORKS
->
-> `ø.URI("%s/%s", ø.Authority("http://example.com"), ø.Path("foo/bar"))`
+Use `ø.Params(any)` combinator to lifts the flat structure or individual values into query parameters of specified URI. 
+
+```go
+type MyParam struct {
+  Site string `json:"site,omitempty"`
+  Host string `json:"host,omitempty"`
+}
+
+func TestXxx() http.Arrow {
+  return http.GET(
+    /* ... */
+    ø.Params(MyParam{Site: "example.com", Host: "127.1"}),
+    /* ... */
+  )
+}
+```
+
+Use `ø.Param` to declare individual query parameters, this combinator is suitable for simple queries, where definition of dedicated type seen as an overhead 
+
+```go
+func TestXxx() http.Arrow {
+  return http.GET(
+    /* ... */
+    ø.Param("site", "example.com"),
+    ø.Param("host", "127.1"),
+    /* ... */
+  )
+}
+```
