@@ -135,7 +135,9 @@ The `ø.URI` combinator is equivalent to `fmt.Sprintf`. It uses [percent encodin
 http.GET(
   ø.URI("http://example.com/%s", "foo bar"),
 )
+```
 
+```
 // All path segments are escaped by default, use ø.Authority or ø.Path
 // types to disable escaping
 
@@ -149,3 +151,13 @@ http.GET(
   ø.URI("%s/%s", ø.Authority("http://example.com"), ø.PATH("foo/bar")),
 )
 ```
+
+{: .warning }
+> BAD, DOES NOT WORK
+>
+> `ø.URI("%s/%s", "http://example.com", "foo/bar")`
+
+{: .note }
+> GOOD, IT WORKS
+>
+> `ø.URI("%s/%s", ø.Authority("http://example.com"), ø.Path("foo/bar"))`
