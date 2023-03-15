@@ -95,7 +95,7 @@ Writer (emitter) morphism combinators. It focuses inside the protocol stack and 
 
 #### Method
 
-Use `http.GET(/* ... */)` combinator declares the verb of HTTP request. The language declares a combinator for most of HTTP verbs: `http.GET`, `http.HEAD`, `http.POST`, `http.PUT`, `http.DELETE` and `http.PATCH`.
+Use `http.GET(/* ... */)` combinator to declare the verb of HTTP request. The language declares a combinator for most of HTTP verbs: `http.GET`, `http.HEAD`, `http.POST`, `http.PUT`, `http.DELETE` and `http.PATCH`.
 
 ```go
 func TestGetXxx() http.Arrow {
@@ -110,9 +110,42 @@ func TestPutXxx() http.Arrow {
 Use `ø.Method` combinator to declare other verbs
 
 ```go
-func TestPutXxx() http.Arrow {
+func TestXxx() http.Arrow {
   return http.Join(
     ø.Method("OPTIONS"),
     /* ... */)
 }
+```
+
+#### Target URI
+
+Use `ø.URI(string)` combinator to specifies target URI for HTTP request. The combinator uses absolute URI to specify protocol, target host and path of the endpoint.
+
+```go
+func TestXxx() http.Arrow {
+  return http.GET(
+    ø.URI("http://example.com"),
+    /* ... */)
+}
+```
+
+The `ø.URI` combinator is equivalent to `fmt.Sprintf`. It uses [percent encoding](https://golang.org/pkg/fmt/) to format and escape values.
+
+```go
+http.GET(
+  ø.URI("http://example.com/%s", "foo bar"),
+)
+
+// All path segments are escaped by default, use ø.Authority or ø.Path
+// types to disable escaping
+
+// BAD, DOES NOT WORK
+http.GET(
+  ø.URI("%s/%s", "http://example.com", "foo/bar"),
+)
+
+// GOOD, IT WORKS
+http.GET(
+  ø.URI("%s/%s", ø.Authority("http://example.com"), ø.PATH("foo/bar")),
+)
 ```
