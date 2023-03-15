@@ -10,13 +10,13 @@ has_children: true
 
 # Introduction
 
-`assay-it` is testing tool for distributed application implemented with Go or other languages.  
+`assay-it` is a cross platform tool for testing distributed application in production. 
 {: .fs-6 .fw-300 }
 
 
 ## Why has it been made?
 
-Microservices have become a design style to evolve system architecture in parallel, implement stable and consistent interfaces. This architecture style brings additional complexity and new problems -- quality assessment. 
+Microservices and cloud functions have become a design style to evolve system architecture in parallel, implement stable and consistent interfaces. This architecture style brings additional complexity and new problems -- quality assessment. 
 
 Engineers uses **mocking and staging** environments as a primary testing strategy, which is more complex when your application is distributed. Therefore, teams **spend twice as much time** maintaining these imitations around genuine cloud services. The best effort simulation of the real environment is the real environment itself. 
 
@@ -43,16 +43,19 @@ The given semantic provides an intuitive approach to specify requests and respon
 
 Standard Golang library implement a low-level protocol interfaces, which requires knowledge about the protocol itself, understanding of Golang implementation aspects, and a bit of boilerplate coding. It also misses standardized chaining (composition) of individual requests.
 
-`assay-it` uses [ᵍ🆄🆁🅻 library](https://github.com/fogfish/gurl) that provides type and and pure functional languages to express communication behavior by hiding the networking complexity. It implements a declarative approach for testing of network protocols. Domain Specific Language declared by the library is genue and pure Golang code so that standard tools are in use.
+`assay-it` uses [ᵍ🆄🆁🅻 library](https://github.com/fogfish/gurl) that provides type safe and and pure functional languages to express communication behavior by hiding the networking complexity. It implements a declarative approach for testing of distributed application. For the simplicity reason, testing suites are implemented using Domain Specific Language, which is genue and pure Golang syntax (actual GOlang code).
 
-The composition of individual networking operation to complex networking computations and represent them as pure computation is a philosophy casted on the test suite development.   
+The development process of testing suites pitches for the composition of individual networking operations into pure computations.
 
 
 ## Use cases
 
-tbd
+`assay-it` is built with automation to **confirm quality** and **eliminate risks** as a key feature along the development process of distributed application. With this tool engineering teams build continuous proofs of the quality helps to eliminate defects at earlier phases of the feature lifecycle, ensuring that software assets are always in a release-ready state.
 
-## Usage
+`assay-it` implements both local and CI workflows, which are capable to validate quality of every single commit deployed into the cloud. 
 
-tbd
 
+Hopefully you find it useful, and the docs easy to follow.
+{: .fs-6 .fw-300 }
+
+Feel free to [create an issue](https://github.com/assay-it/assay-it/issues) if you find something that's not clear and [join our discussions](https://github.com/assay-it/assay-it/discussions) to chat with other users and maintainers.
