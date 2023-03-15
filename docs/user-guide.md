@@ -14,6 +14,14 @@ The combinators fit very well to express intent of communication behavior. It gi
 
 `assay-it` is implemented over [ᵍ🆄🆁🅻 library](https://github.com/fogfish/gurl) - a "combinator" library for network I/O. Combinators open up an opportunity to depict computation problems in terms of fundamental elements like physics talks about universe in terms of particles. The only definite purpose of combinators are building blocks for composition of "atomic" functions into computational structures. `assay-it` uses a powerful symbolic expressions of combinators to implement declarative language for testing suite development.
 
+## Table of contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
+
 ## Background
 
 ### Combinators
