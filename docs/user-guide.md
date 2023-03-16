@@ -60,9 +60,7 @@ d := http.Join(a, b, c)
 Ease of the composition is one of major intent why syntax deviates from standard Golang HTTP interface. `http.Join` produces instances of higher order `http.Arrow` type, which is composable “promises” of HTTP I/O and so on. Essentially, the network I/O is just a set of `Arrow` functions. These rules of Arrow composition allow anyone to build a complex HTTP I/O scenario from a small reusable block.
 
 
-## Combinators and its syntax
-
-### Imports
+### Combinators and its syntax
 
 The combinator domain specific language consists of multiple packages, import them all into Golang module
 
@@ -89,11 +87,11 @@ import (
 func TestWebSiteOnline() http.Arrow { /* ... */ }
 ```
 
-### Writer combinators
+## Writer combinators
 
 Writer (emitter) morphism combinators. It focuses inside the protocol stack and reshapes requests. In the context of HTTP protocol, the writer morphism is used to declare HTTP method, destination URL, request headers and payload.
 
-#### Method
+### Method
 
 Use `http.GET(/* ... */)` combinator to declare the verb of HTTP request. The language declares a combinator for most of HTTP verbs: `http.GET`, `http.HEAD`, `http.POST`, `http.PUT`, `http.DELETE` and `http.PATCH`.
 
@@ -117,7 +115,7 @@ func TestXxx() http.Arrow {
 }
 ```
 
-#### Target URI
+### Target URI
 
 Use `ø.URI(string)` combinator to specifies target URI for HTTP request. The combinator uses absolute URI to specify protocol, target host and path of the endpoint.
 
@@ -150,7 +148,7 @@ http.GET(
 )
 ```
 
-#### Query Params
+### Query Params
 
 Use `ø.Params(any)` combinator to lifts the flat structure or individual values into query parameters of specified URI. 
 
@@ -181,3 +179,57 @@ func TestXxx() http.Arrow {
   )
 }
 ```
+
+### Request Headers
+
+Use `ø.Header[T any](string, T)` to declares headers and its values into HTTP requests. The [standard HTTP headers](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields) are accomplished by a dedicated combinator making it type safe and easy to use e.g. `ø.ContentType.ApplicationJSON`.
+
+```go
+func TestXxx() http.Arrow {
+  return http.GET(
+    /* ... */
+    ø.Header("Client", "curl/7.64.1"),
+    ø.Authorization.Set("Bearer eyJhbGciOiJIU...adQssw5c"),
+    ø.ContentType.ApplicationJSON,
+    ø.Accept.JSON,
+    /* ... */
+  )
+}
+```
+
+### Request payload
+
+Use `ø.Send` to transmits the payload to the destination URI. The combinator takes standard data types (e.g. maps, struct, etc) and encodes it to binary using Content-Type header as a hint. It fails if content type header is not defined or not supported by the library.
+
+```go
+type MyType struct {
+  Site string `json:"site,omitempty"`
+  Host string `json:"host,omitempty"`
+}
+
+// Encode struct to JSON
+http.GET(
+  // ...
+  ø.ContentType.JSON,
+  ø.Send(MyType{Site: "example.com", Host: "127.1"}),
+)
+
+// Encode map to www-form-urlencoded
+http.GET(
+  // ...
+  ø.ContentType.Form,
+  ø.Send(map[string]string{
+    "site": "example.com",
+    "host": "127.1",
+  })
+)
+
+// Send string, []byte or io.Reader. Just define the right Content-Type
+http.GET(
+  // ...
+  ø.ContentType.Form,
+  ø.Send([]byte{"site=example.com&host=127.1"}),
+)
+```
+
+On top of the shown type, it also support a raw octet-stream payload presented after one of the following Golang types: `string`, `*strings.Reader`, `[]byte`, `*bytes.Buffer`, `*bytes.Reader`, `io.Reader` and any arbitrary `struct`.
