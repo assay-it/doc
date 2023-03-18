@@ -207,29 +207,272 @@ type MyType struct {
   Host string `json:"host,omitempty"`
 }
 
-// Encode struct to JSON
-http.GET(
-  // ...
-  ø.ContentType.JSON,
-  ø.Send(MyType{Site: "example.com", Host: "127.1"}),
-)
+func TestSendJSON() http.Arrow {
+  return http.GET(
+    // ...
+    ø.ContentType.JSON,
+    ø.Send(MyType{Site: "example.com", Host: "127.1"}),
+  )
+}
 
-// Encode map to www-form-urlencoded
-http.GET(
-  // ...
-  ø.ContentType.Form,
-  ø.Send(map[string]string{
-    "site": "example.com",
-    "host": "127.1",
-  })
-)
+func TestSendForm() http.Arrow {
+  return http.GET(
+    // ...
+    ø.ContentType.Form,
+    ø.Send(map[string]string{
+      "site": "example.com",
+      "host": "127.1",
+    })
+  )
+}
 
-// Send string, []byte or io.Reader. Just define the right Content-Type
-http.GET(
-  // ...
-  ø.ContentType.Form,
-  ø.Send([]byte{"site=example.com&host=127.1"}),
-)
+func TestSendOctetStream() http.Arrow {
+  return http.GET(
+    // ...
+    ø.ContentType.Form,
+    ø.Send([]byte{"site=example.com&host=127.1"}),
+  )
+}
 ```
 
 On top of the shown type, it also support a raw octet-stream payload presented after one of the following Golang types: `string`, `*strings.Reader`, `[]byte`, `*bytes.Buffer`, `*bytes.Reader`, `io.Reader` and any arbitrary `struct`.
+
+
+## Reader combinators
+
+Reader (matcher) morphism combinators. It focuses on the side-effects of the protocol stack. The reader morphism is a pattern matcher, and is used to match response code, headers and response payload, etc. Its major property is “fail fast” with error if the received value does not match the expected pattern.
+
+### Status Code
+
+Use `ƒ.Status.OK` checks the code in HTTP response and fails with error if the status code does not match the expected one. Status code is only mandatory reader combinator to be declared. The all well-known HTTP status codes are accomplished by a dedicated combinator making it type safe (e.g. `ƒ.Status` is constant with all known HTTP status codes as combinators).
+
+```go
+func TestXxx() http.Arrow {
+  return http.GET(
+    // ...
+    ƒ.Status.OK,
+  )
+}
+```
+
+Sometime a multiple HTTP status codes has to be accepted `ƒ.Code` arrow is variadic function that does it
+
+```go
+func TestXxx() http.Arrow {
+  return http.GET(
+    // ...
+    ƒ.Code(http.StatusOK, http.StatusCreated, http.StatusAccepted),
+  )
+}
+```
+
+### Response Headers
+
+Use `ƒ.Header` combinator to matches the presence of HTTP header and its value in the response. The matching fails if the response is missing the header or its value does not correspond to the expected one. The [standard HTTP headers](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields) are accomplished by a dedicated combinator making it type safe and easy to use e.g. `ƒ.ContentType.ApplicationJSON`.
+
+```go
+func TestXxx() http.Arrow {
+  return http.GET(
+    // ...
+    ƒ.Header("Content-Type", "application/json"),
+    ƒ.Authorization.Is("Bearer eyJhbGciOiJIU...adQssw5c"),
+    ƒ.ContentType.JSON,
+    ƒ.Server.Any,
+  )
+}
+```
+
+The combinator support "lifting" of header value into the variable for the further usage in the application.
+
+```go
+func TestXxx() http.Arrow {
+  var (
+    date time.Time
+    mime string
+    some string
+  )
+
+  return http.GET(
+    // ...
+    ƒ.Date.To(&date),
+    ƒ.ContentType.To(&mime),
+    ƒ.Header("X-Some", &some),
+  )
+}
+```
+
+### Response Payload
+
+Use `ƒ.Body` consumes payload from HTTP requests and decodes the value into the type associated with the lens using Content-Type header as a hint. It fails if the body cannot be consumed.
+
+
+```go
+type MyType struct {
+  Site string `json:"site,omitempty"`
+  Host string `json:"host,omitempty"`
+}
+
+func TestXxx() http.Arrow {
+  var data MyType
+
+  return http.GET(
+    // ...
+    ƒ.Body(&data), // Note: pointer to data structure is required
+  )
+}
+```
+
+So far, utility support auto decoding of the following `Content-Types` into structs
+* `application/json`
+* `application/x-www-form-urlencoded`
+
+For all other cases, there is `ƒ.Bytes` combinator that receives raw binaries.  
+
+```go
+func TestXxx() http.Arrow {
+  var data []byte
+
+  return http.GET(
+    // ...
+    ƒ.Bytes(&data), // Note: pointer to buffer is required
+  )
+}
+```
+
+### Assert Payload
+
+Combinators is not only about pure networking but also supports assertion of responses. Assert combinator aborts the evaluation of computation if expected value do not match the response. There are three type of asserts: type safe `ƒ.Expect`, loosely typed `ƒ.Match` and customer combinator.
+
+**Type safe**: Use `ƒ.Expect` to define expected value as Golang struct. The combinator fails if received value do not strictly equals to expected one.
+
+```go
+func TestXxx() http.Arrow {
+  return http.GET(
+    // ...
+    ƒ.Expect(MyType{Site: "example.com", Host: "127.1"}),
+  )
+}
+```
+
+**Loosely typed**: Use `ƒ.Match` to define expected value as string pattern. In the contrast to type safe combinator, the combinator takes a valid JSON object as string.
+It matches only defined values and supports wildcard matching. For example: 
+
+```go
+// matches anything
+`"_"`
+
+// matches any object with key "site"
+`{"site": "_"}`
+
+// matches array of length 1 
+`["_"]`
+
+// matches any object with key "site" equal to  "example.com"
+`{"site": "example.com"}`
+
+// matches any array of length 2 with first object having the key 
+`[{"site": "_"}, "_"]`
+
+// matches nested objects
+`{"site": {"host": "_"}}`
+
+// and so on ...
+
+func TestXxx() http.Arrow {
+  return http.GET(
+    // ...
+    ƒ.Match(`{"site": "example.com", "host": "127.1"}`),
+  )
+}
+```
+
+**Custom combinator**: The `type Arrow func(*http.Context) error` is "open" interface to combine assert logic with networking I/O. These functions act as lense -- focuses inside the structure, fetching values and asserts them. These helpers can do anything with the computation including its termination: 
+
+```go
+type MyType struct {
+  Site string `json:"site,omitempty"`
+  Host string `json:"host,omitempty"`
+}
+
+// a type receiver to assert the value
+func (t *MyType) CheckValue(*http.Context) error {
+  if t.Host != "127.1" {
+    return fmt.Errorf("...")
+  }
+
+  return nil
+}
+
+func TestXxx() http.Arrow {
+  var data MyType
+
+  return http.GET(
+    // ...
+    ƒ.Recv(data),
+    t.CheckValue,
+  )
+}
+```
+
+## Chain networking I/O
+
+Ease of the composition is one of major intent why combinators has been defined. `http.Join` produces instances of higher order combinator, which is composable into higher order constructs. Let's consider an example where sequence of requests needs to be executed one after another (e.g. interaction with GitHub API):   
+
+```go
+// 1. declare a product type that depict the context of networking I/O. 
+type State struct {
+  Token AccessToken
+  User  User
+  Org   Org
+}
+
+// 2. declare collection of independent requests, each either reads or writes
+// the context
+func (s *State) FetchAccessToken() http.Arrow {
+  return http.GET(
+    // ...
+    ƒ.Recv(&s.Token),              // writes access token to context
+  )
+}
+
+func (s *State) FetchUser() error {
+  return http.POST(
+    ø.URI(/* ... */),
+    ø.Authorization.Set(&s.Token), // reads access token from context
+    // ...
+    ƒ.Recv(&hof.User),               // writes user object to context
+  )
+}
+
+func (s *State) FetchContribution() error {
+  return http.POST(
+    ø.URI(&s.User.Repos),          // reads user object from context
+    ø.Authorization.Set(&s.Token), // reads access token from context
+    // ...
+    ƒ.Recv(&s.Org),                // writes user's contribution to context
+  )
+}
+
+// 3. Composed sequence of requests into the chained sequence
+func HighOrderFunction() (*State, http.Arrow) {
+	var state State
+
+	//
+	// HoF combines HTTP requests to
+	//  * https://httpbin.org/uuid
+	//  * https://httpbin.org/post
+	//
+	// results of HTTP I/O is persisted in the internal state
+	return &state, http.Join(
+    state.FetchAccessToken(),
+    state.FetchUser(),
+    state.FetchContribution(),
+	)
+}
+```
+
+Hopefully you find it useful, and the docs easy to follow.
+{: .fs-6 .fw-300 }
+
+Feel free to [create an issue](https://github.com/assay-it/assay-it/issues) if you find something that's not clear and [join our discussions](https://github.com/assay-it/assay-it/discussions) to chat with other users and maintainers.
+
