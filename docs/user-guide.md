@@ -2,7 +2,7 @@
 layout: default
 title: User Guide
 description: |
-  xxx
+  User Guide on the usage of combinators to implements a testing suites for cloud application.
 nav_order: 5
 permalink: /user-guide
 ---
