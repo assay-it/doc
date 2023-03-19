@@ -5,6 +5,7 @@ description: |
   Cookbook provides various real life examples of how assay-it improves your productivity.
 nav_order: 6
 permalink: /cookbooks
+has_children: true
 ---
 
 # Cookbooks
