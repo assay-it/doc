@@ -13,8 +13,8 @@ color_scheme: site
 search_enabled: true
 
 aux_links:
-  # "Blog":
-  #   - "https://assay.it/blog/"
+  "Home":
+    - "https://assay.it"
   # "Community":
   #   - "https://assay-it.slack.com/"
   "Twitter":
