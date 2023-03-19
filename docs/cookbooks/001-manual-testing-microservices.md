@@ -3,7 +3,7 @@ layout: default
 title: Manual Testing of Microservices
 description: |
   Start manual on-demand testing of public or private cloud application
-parent: cookbooks
+parent: Cookbooks
 nav_order: 2
 permalink: /cookbooks/manual-testing-of-microservices
 ---
