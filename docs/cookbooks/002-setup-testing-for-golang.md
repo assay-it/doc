@@ -2,7 +2,7 @@
 layout: default
 title: Setup Testing for Golang modules
 description: |
-  Start manual on-demand testing of public or private cloud application
+  Setup testing of public or private cloud application developed with Golang
 parent: Cookbooks
 nav_order: 2
 permalink: /cookbooks/setup-testing-for-golang-modules
@@ -34,4 +34,8 @@ Run testing
 ```bash
 assay-it test
 ```
+
+The example of usage `assay-it` utility with Golang model is shown by [the blueprint](https://github.com/fogfish/blueprint-serverless-golang). 
+
+[Go Example](https://github.com/fogfish/blueprint-serverless-golang/blob/main/http/suites/petshop.go){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 
